@@ -31,6 +31,13 @@ properties:
       settings:
         id: CoreyButler.NVMforWindows
         source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install Visual Studio 2022 Community
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudio.2022.Community
+        source: winget
     # TODO: Install the latest version of Visual Studio 2022 with the following options checked:
     # TODO: Visual Studio 2022 Workload: Node.js development
     # TODO: Visual Studio 2022 Workload: .NET Desktop development

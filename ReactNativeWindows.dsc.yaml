@@ -32,19 +32,32 @@ properties:
         id: CoreyButler.NVMforWindows
         source: winget
     - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: vsPackage
       directives:
         description: Install Visual Studio 2022 Community
         allowPrerelease: true
       settings:
         id: Microsoft.VisualStudio.2022.Community
         source: winget
-    # TODO: Install the latest version of Visual Studio 2022 with the following options checked:
-    # TODO: Visual Studio 2022 Workload: Node.js development
-    # TODO: Visual Studio 2022 Workload: .NET Desktop development
-    # TODO: Visual Studio 2022 Workload: Desktop development with C++ Include MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest) (check under 'Optional')
-    # TODO: Visual Studio 2022 Workload: Universal Windows Platform development Include C++ (v143) Universal Windows Platform tools (check under 'Optional')
-    # TODO: Visual Studio 2022 Individual Components:  Include Windows 10 SDK (10.0.19041.0) (target OS version from this table) https://microsoft.github.io/react-native-windows/docs/win10-compat#react-native-app-supported-os-versions
-    # TODO: Include MSVC v143 - VS 2022 C++ ARM64 build tools (Latest) (to target ARM64 devices)
+    - resource: Microsoft.VisualStudio.DSC/VSComponents
+      dependsOn:
+        - vsPackage
+      directives:
+        description: Install required VS workloads from vsconfig file
+        allowPrerelease: true
+      settings:
+        productId: Microsoft.VisualStudio.Product.Community
+        channelId: VisualStudio.17.Release
+        components:
+          - Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+          - Microsoft.VisualStudio.ComponentGroup.UWP.Support
+          - Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core
+          - Microsoft.VisualStudio.Component.Windows10SDK.19041
+          - Microsoft.VisualStudio.Workload.ManagedDesktop
+          - Microsoft.VisualStudio.Workload.NativeDesktop
+          - Microsoft.VisualStudio.Workload.Universal
+          - Microsoft.VisualStudio.ComponentGroup.UWP.VC
+        includeRecommended: false
     # TODO: Enable Long Paths in Windows 10, Version 1607, and Later. https://microsoft.github.io/react-native-windows/docs/rnw-dependencies#install-the-development-dependencies:~:text=Enable%20Long%20Paths%20in%20Windows%2010%2C%20Version%201607%2C%20and%20Later.
     # TODO: Install the latest version of the .NET 6.0 SDK. https://microsoft.github.io/react-native-windows/docs/rnw-dependencies#install-the-development-dependencies:~:text=Install%20the%20latest%20version%20of%20the%20.NET%206.0%20SDK.
     # TODO: yarn?

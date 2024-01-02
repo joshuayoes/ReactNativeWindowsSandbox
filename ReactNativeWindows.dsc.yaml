@@ -1,16 +1,16 @@
 # yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
 
 ##########################################################################################################
-# This configuration will install the tools necessary to get started with Node.js development on Windows #
-# Reference: https://learn.microsoft.com/windows/dev-environment/javascript/nodejs-on-windows            #
+# This configuration will install the tools necessary for React Native for Windows development           #
+# Reference: https://microsoft.github.io/react-native-windows/docs/rnw-dependencies                      #
 #                                                                                                        #
 # Note: If an existing version of Node.js is installed on the machine outside of NVM, you will be        #
 #       prompted to either allow NVM to manage that installation or remove it.                           #
 ##########################################################################################################
 
 properties:
+  configurationVersion: 0.2.0
   resources:
-    # Basic development tools
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: Git
       directives:
@@ -24,14 +24,6 @@ properties:
         description: Enable Developer Mode
         allowPrerelease: true
     - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: VSCode
-      directives:
-        description: Install Visual Studio Code
-        allowPrerelease: true
-      settings:
-        id: Microsoft.VisualStudioCode
-        source: winget
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: NVM
       directives:
         description: Install NVM for Windows
@@ -39,5 +31,13 @@ properties:
       settings:
         id: CoreyButler.NVMforWindows
         source: winget
-
-  configurationVersion: 0.2.0
+    # TODO: Install the latest version of Visual Studio 2022 with the following options checked:
+    # TODO: Visual Studio 2022 Workload: Node.js development
+    # TODO: Visual Studio 2022 Workload: .NET Desktop development
+    # TODO: Visual Studio 2022 Workload: Desktop development with C++ Include MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest) (check under 'Optional')
+    # TODO: Visual Studio 2022 Workload: Universal Windows Platform development Include C++ (v143) Universal Windows Platform tools (check under 'Optional')
+    # TODO: Visual Studio 2022 Individual Components:  Include Windows 10 SDK (10.0.19041.0) (target OS version from this table) https://microsoft.github.io/react-native-windows/docs/win10-compat#react-native-app-supported-os-versions
+    # TODO: Include MSVC v143 - VS 2022 C++ ARM64 build tools (Latest) (to target ARM64 devices)
+    # TODO: Enable Long Paths in Windows 10, Version 1607, and Later. https://microsoft.github.io/react-native-windows/docs/rnw-dependencies#install-the-development-dependencies:~:text=Enable%20Long%20Paths%20in%20Windows%2010%2C%20Version%201607%2C%20and%20Later.
+    # TODO: Install the latest version of the .NET 6.0 SDK. https://microsoft.github.io/react-native-windows/docs/rnw-dependencies#install-the-development-dependencies:~:text=Install%20the%20latest%20version%20of%20the%20.NET%206.0%20SDK.
+    # TODO: yarn?

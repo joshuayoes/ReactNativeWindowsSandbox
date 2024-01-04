@@ -32,12 +32,21 @@ properties:
         id: CoreyButler.NVMforWindows
         source: winget
     - resource: PSDscResources/Script
+      id: NVMDefault
       directives:
         description: Set NVM for Windows default version to lts
       settings:
-        TestScript: try { $nodeVersion = node -v $true } catch { $false }
+        TestScript: try { $nodeVersion = node -v; $true } catch { $false }
         SetScript: "& nvm install lts; & nvm use lts"
         GetScript: return @{ Result = node -v }
+    - resource: PSDscResources/Script
+      id: Yarn
+      directives:
+        description: Install yarn 1
+      settings:
+        TestScript: try { $yarnVersion = yarn -v; $true } catch { $false }
+        SetScript: npm install -g yarn
+        GetScript: return @{ Result = yarn -v }
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: vsPackage
       directives:

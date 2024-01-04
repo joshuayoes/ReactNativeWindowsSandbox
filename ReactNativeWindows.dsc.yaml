@@ -31,6 +31,13 @@ properties:
       settings:
         id: CoreyButler.NVMforWindows
         source: winget
+    - resource: PSDscResources/Script
+      directives:
+        description: Set NVM for Windows default version to lts
+      settings:
+        TestScript: try { $nodeVersion = node -v $true } catch { $false }
+        SetScript: "& nvm install lts; & nvm use lts"
+        GetScript: return @{ Result = node -v }
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: vsPackage
       directives:
@@ -76,4 +83,3 @@ properties:
       settings:
         id: Microsoft.DotNet.SDK.6
         source: winget
-    # TODO: yarn?

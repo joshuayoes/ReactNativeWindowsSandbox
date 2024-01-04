@@ -20,6 +20,7 @@ properties:
         id: Git.Git
         source: winget
     - resource: Microsoft.Windows.Developer/DeveloperMode
+      id: DeveloperMode
       directives:
         description: Enable Developer Mode
         allowPrerelease: true
@@ -56,6 +57,7 @@ properties:
         id: Microsoft.VisualStudio.2022.Community
         source: winget
     - resource: Microsoft.VisualStudio.DSC/VSComponents
+      id: vsComponents
       dependsOn:
         - vsPackage
       directives:
@@ -75,8 +77,9 @@ properties:
           - Microsoft.VisualStudio.ComponentGroup.UWP.VC
         includeRecommended: false
     - resource: PSDscResources/Registry
+      id: EnableLongPaths
       directives:
-        description: Enable Long Paths in Windows 10, Version 1607, and Later
+        description: Enable Long Paths
         allowPrerelease: true
       settings:
         Ensure: Present
@@ -86,6 +89,7 @@ properties:
         ValueData: 1
         Force: true
     - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: DotNet
       directives:
         description: Install .NET 6.0 SDK
         allowPrerelease: true

@@ -58,6 +58,22 @@ properties:
           - Microsoft.VisualStudio.Workload.Universal
           - Microsoft.VisualStudio.ComponentGroup.UWP.VC
         includeRecommended: false
-    # TODO: Enable Long Paths in Windows 10, Version 1607, and Later. https://microsoft.github.io/react-native-windows/docs/rnw-dependencies#install-the-development-dependencies:~:text=Enable%20Long%20Paths%20in%20Windows%2010%2C%20Version%201607%2C%20and%20Later.
-    # TODO: Install the latest version of the .NET 6.0 SDK. https://microsoft.github.io/react-native-windows/docs/rnw-dependencies#install-the-development-dependencies:~:text=Install%20the%20latest%20version%20of%20the%20.NET%206.0%20SDK.
+    - resource: PSDscResources/Registry
+      directives:
+        description: Enable Long Paths in Windows 10, Version 1607, and Later
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+        Key: HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem
+        ValueName: LongPathsEnabled
+        ValueType: Dword
+        ValueData: 1
+        Force: true
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install .NET 6.0 SDK
+        allowPrerelease: true
+      settings:
+        id: Microsoft.DotNet.SDK.6
+        source: winget
     # TODO: yarn?

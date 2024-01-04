@@ -59,7 +59,7 @@ properties:
       dependsOn:
         - vsPackage
       directives:
-        description: Install required VS workloads from vsconfig file
+        description: Install required VS workloads and components
         allowPrerelease: true
       settings:
         productId: Microsoft.VisualStudio.Product.Community

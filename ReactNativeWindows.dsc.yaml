@@ -19,6 +19,20 @@ properties:
       settings:
         id: Git.Git
         source: winget
+    - resource: PSDscResources/Environment
+      id: GitPath
+      dependsOn:
+        - Git
+      directives:
+        description: Add Git bin to PATH to enable bash and sh script execution
+      settings:
+        Name: PATH
+        Value: C:\Program Files\Git\bin
+        Ensure: Present
+        Path: true
+        Target: 
+          - Process
+          - Machine
     - resource: Microsoft.Windows.Developer/DeveloperMode
       id: DeveloperMode
       directives:

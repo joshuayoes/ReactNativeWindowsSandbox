@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+
+##########################################################################################################
+# This configuration is for useful development tools that are optional for CI but useful for development #
+##########################################################################################################
+
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: VisualStudioCode
+      directives:
+        description: Install Visual Studio Code, a cross-platform code editor
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: WindowsTerminal
+      directives:
+        description: Install Windows Terminal, a modern terminal emulator
+        allowPrerelease: true
+      settings:
+        id: Microsoft.WindowsTerminal
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: PowerToys
+      directives:
+        description: Install Windows PowerToys, a set of utilities for power users
+        allowPrerelease: true
+      settings:
+        id: Microsoft.PowerToys
+        source: winget
+  

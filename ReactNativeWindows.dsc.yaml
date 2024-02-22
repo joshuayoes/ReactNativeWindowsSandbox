@@ -48,6 +48,8 @@ properties:
         source: winget
     - resource: PSDscResources/Script
       id: NVMDefault
+      dependsOn:
+        - NVM
       directives:
         description: Set NVM for Windows default version to lts
       settings:
@@ -56,6 +58,8 @@ properties:
         GetScript: return @{ Result = node -v }
     - resource: PSDscResources/Script
       id: Yarn
+      dependsOn:
+        - NVMDefault
       directives:
         description: Install yarn 1
       settings:

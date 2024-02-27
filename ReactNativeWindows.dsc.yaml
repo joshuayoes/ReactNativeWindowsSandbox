@@ -64,7 +64,7 @@ properties:
         description: Install yarn 1
       settings:
         TestScript: try { $yarnVersion = yarn -v; $true } catch { $false }
-        SetScript: npm install -g yarn
+        SetScript: corepack enable
         GetScript: return @{ Result = yarn -v }
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: vsPackage

@@ -21,7 +21,17 @@ choco install winget
 
 ## How to use
 
+### `git clone` method
+
 1. Clone the repository
 2. Open a PowerShell window in the root of the repository
-3. Run `winget configure ./ReactNativeWindows.dsc.yaml`. This will setup required dependencies.
-4. Run `winget configure ./WindowsDevTools.dsc.yaml`. This will setup development tools you probably want to work with using React Native for Windows. 
+3. Run `winget configure ReactNativeWindows.dsc.yaml`. This will setup required dependencies.
+4. Run `winget configure WindowsDevTools.dsc.yaml`. This will setup development tools you probably want to work with using React Native for Windows. 
+
+### `powershell` method
+
+1. Open Powershell terminal as administrator
+2. Run `Invoke-WebRequest -Uri "https://raw.githubusercontent.com/joshuayoes/ReactNativeWindowsSandbox/main/ReactNativeWindows.dsc.yaml" -OutFile "ReactNativeWindows.dsc.yaml"`. This will download `ReactNativeWindows.dsc.yaml` to your working directory.
+3. Run `winget configure ReactNativeWindows.dsc.yaml`. This will setup required dependencies.
+4. Run `Invoke-WebRequest -Uri "https://raw.githubusercontent.com/joshuayoes/ReactNativeWindowsSandbox/main/WindowsDevTools.dsc.yaml" -OutFile "WindowsDevTools.dsc.yaml"`. This will download `WindowsDevTools.dsc.yaml` to your working directory.
+5. Run `winget configure WindowsDevTools.dsc.yaml`. This will setup development tools you probably want to work with using React Native for Windows.

@@ -5,7 +5,7 @@ This project contains [WinGet Configurations](https://learn.microsoft.com/en-us/
 ## Requirements
 
 ### Install `winget`
-If you are using Windows 11, you are done! It's already installed. If you are on Windows 11, tou can install it from the [Microsoft Store](https://www.microsoft.com/en-us/p/app-installer/9nblggh4nns1) or from [GitHub](https://github.com/microsoft/winget-cli?tab=readme-ov-file#installing-the-client)
+If you are using Windows 11, you are done! It's already installed. If you are on Windows 10, you can install it from the [Microsoft Store](https://www.microsoft.com/en-us/p/app-installer/9nblggh4nns1) or from [GitHub](https://github.com/microsoft/winget-cli?tab=readme-ov-file#installing-the-client)
 
 <details>
   <summary>Note for Windows Server users</summary>

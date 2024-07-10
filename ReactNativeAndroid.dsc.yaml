@@ -57,16 +57,6 @@ properties:
         TestScript: try { $nodeVersion = node -v; $true } catch { $false }
         SetScript: "& nvm install lts; & nvm use lts"
         GetScript: return @{ Result = node -v }
-    - resource: PSDscResources/Script
-      id: Yarn
-      dependsOn:
-        - NVMDefault
-      directives:
-        description: Install yarn 1
-      settings:
-        TestScript: try { $yarnVersion = yarn -v; $true } catch { $false }
-        SetScript: corepack enable
-        GetScript: return @{ Result = yarn -v }
     - resource: PSDscResources/Registry
       id: EnableLongPaths
       directives:

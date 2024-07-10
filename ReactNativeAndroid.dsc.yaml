@@ -1,0 +1,125 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+
+##########################################################################################################
+# This configuration will install the tools necessary for React Native for Android development           #
+# Reference: https://reactnative.dev/docs/set-up-your-environment?os=windows                             #
+#                                                                                                        #
+# Note: If an existing version of Node.js is installed on the machine outside of NVM, you will be        #
+#       prompted to either allow NVM to manage that installation or remove it.                           #
+##########################################################################################################
+
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Git
+      directives:
+        description: Install Git
+        allowPrerelease: true
+      settings:
+        id: Git.Git
+        source: winget
+    - resource: PSDscResources/Environment
+      id: GitPath
+      dependsOn:
+        - Git
+      directives:
+        description: Add Git bin to PATH to enable bash and sh script execution
+      settings:
+        Name: PATH
+        Value: C:\Program Files\Git\bin
+        Ensure: Present
+        Path: true
+        Target:
+          - Process
+          - Machine
+    - resource: Microsoft.Windows.Developer/DeveloperMode
+      id: DeveloperMode
+      directives:
+        description: Enable Developer Mode
+        allowPrerelease: true
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: NVM
+      directives:
+        description: Install NVM for Windows
+        allowPrerelease: true
+      settings:
+        id: CoreyButler.NVMforWindows
+        source: winget
+        version: "1.11.1" # We can remove this version pin once this issue is resolved: https://github.com/coreybutler/nvm-windows/issues/1068
+    - resource: PSDscResources/Script
+      id: NVMDefault
+      dependsOn:
+        - NVM
+      directives:
+        description: Set NVM for Windows default version to lts
+      settings:
+        TestScript: try { $nodeVersion = node -v; $true } catch { $false }
+        SetScript: "& nvm install lts; & nvm use lts"
+        GetScript: return @{ Result = node -v }
+    - resource: PSDscResources/Script
+      id: Yarn
+      dependsOn:
+        - NVMDefault
+      directives:
+        description: Install yarn 1
+      settings:
+        TestScript: try { $yarnVersion = yarn -v; $true } catch { $false }
+        SetScript: corepack enable
+        GetScript: return @{ Result = yarn -v }
+    - resource: PSDscResources/Registry
+      id: EnableLongPaths
+      directives:
+        description: Enable Long Paths
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+        Key: HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem
+        ValueName: LongPathsEnabled
+        ValueType: Dword
+        ValueData: 1
+        Force: true
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: AndroidStudio
+      directives:
+        description: Install Android Studio
+        allowPrerelease: true
+      settings:
+        id: Google.AndroidStudio
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: OpenJDK17
+      directives:
+        description: Install OpenJDK 17
+        allowPrerelease: true
+      settings:
+        id: ojdkbuild.openjdk.17.jdk
+        source: winget
+    - resource: PSDscResources/Environment
+      id: AndroidHomePath
+      dependsOn:
+        - AndroidStudio
+      directives:
+        description: Configure the ANDROID_HOME environment variable
+      settings:
+        Name: ANDROID_HOME
+        Value: '%LOCALAPPDATA%\Android\Sdk'
+        Ensure: Present
+        Path: true
+        Target:
+          - Process
+          - Machine
+    - resource: PSDscResources/Environment
+      id: AndroidPlatformToolsPath
+      dependsOn:
+        - AndroidStudio
+      directives:
+        description: Add platform-tools to Path
+      settings:
+        Name: PATH
+        Value: '%LOCALAPPDATA%\Android\Sdk\platform-tools'
+        Ensure: Present
+        Path: true
+        Target:
+          - Process
+          - Machine

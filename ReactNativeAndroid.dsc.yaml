@@ -57,6 +57,30 @@ properties:
         TestScript: try { $nodeVersion = node -v; $true } catch { $false }
         SetScript: "& nvm install lts; & nvm use lts"
         GetScript: return @{ Result = node -v }
+    - resource: PSDscResources/Script
+      id: NpmConfigShell
+      dependsOn:
+        - Git
+        - NVM
+        - NVMDefault
+      directives:
+        description: npm config set shell "C:\\Program Files\\Git\\bin\\bash.exe"
+      settings:
+        TestScript: try { if ((npm config get shell) -eq 'C:\Program Files\Git\bin\bash.exe') { $true } else { $false } } catch { $false }
+        SetScript: npm config set shell "C:\\Program Files\\Git\\bin\\bash.exe"
+        GetScript: return @{ Result = npm config get shell }
+    - resource: PSDscResources/Script
+      id: NpmConfigScriptShell
+      dependsOn:
+        - Git
+        - NVM
+        - NVMDefault
+      directives:
+        description: npm config set script-shell "C:\\Program Files\\Git\\bin\\bash.exe"
+      settings:
+        TestScript: return ((npm config get script-shell) -eq 'C:\Program Files\Git\bin\bash.exe')
+        SetScript: npm config set script-shell "C:\\Program Files\\Git\\bin\\bash.exe"
+        GetScript: return @{ Result = npm config get script-shell }
     - resource: PSDscResources/Registry
       id: EnableLongPaths
       directives:

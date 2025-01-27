@@ -46,7 +46,7 @@ properties:
       settings:
         id: CoreyButler.NVMforWindows
         source: winget
-        version: "1.1.10" # We can remove this version pin once this issue is resolved: https://github.com/coreybutler/nvm-windows/issues/1068
+        version: "1.1.11" # We can remove this version pin once this issue is resolved: https://github.com/coreybutler/nvm-windows/issues/1068
     - resource: PSDscResources/Script
       id: NVMDefault
       dependsOn:
